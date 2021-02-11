@@ -16,6 +16,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    
+    
+    
+    func goToTitleVC() {
+        guard let vc = TitleViewController.viewController(name: nameText.text ?? "") else { return }
+        self.present(vc, animated: true, completion: nil)
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as? TitleViewController

@@ -12,8 +12,15 @@ class TitleViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBOutlet weak var tableView: UITableView!
     
-    var nameData: String!
+    var nameData: String?
     let vm = ViewModel()
+    
+    static func viewController(name: String) -> TitleViewController? {
+        let sb = UIStoryboard(name: "main", bundle: nil)
+        let vc = sb.instantiateViewController(identifier: "TitleViewController") as? TitleViewController
+        vc?.nameData = name
+        return vc
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +32,7 @@ class TitleViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.dataSource = self
         
         
-        self.vm.callNetwork(name: nameData)
+        self.vm.callNetwork(name: nameData ?? "")
         self.vm.bind { [weak self] in
             print("Callback achieved")
             DispatchQueue.main.async {
@@ -42,11 +49,9 @@ class TitleViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TitleCell", for: indexPath) as! TitleTableViewCell
         
-        //let track = trackArray[indexPath.row]
-        
         cell.artistName.text = self.vm.artistName(index: indexPath.row)
         cell.songTitle.text = self.vm.trackName(index: indexPath.row)
-        cell.releaseDate.text = self.vm.releaseDate(index: indexPath.row)
+        cell.releaseDate.text = self.vm.releaseDate(index: indexPath.row).convertStringDate()
         cell.genre.text = self.vm.genre(index: indexPath.row)
         cell.price.text = "$\(self.vm.price(index: indexPath.row))"
         

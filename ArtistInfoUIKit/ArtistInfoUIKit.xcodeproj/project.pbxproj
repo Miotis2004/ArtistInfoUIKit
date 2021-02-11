@@ -19,6 +19,7 @@
 		FD942E4925D5728A00BA4D40 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD942E4825D5728A00BA4D40 /* Artist.swift */; };
 		FD942E4F25D576F100BA4D40 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD942E4E25D576F100BA4D40 /* NetworkManager.swift */; };
 		FDAB75FF25D57B7A00292647 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAB75FE25D57B7A00292647 /* ViewModel.swift */; };
+		FDDF99A025D5E8D9009925A8 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDF999F25D5E8D9009925A8 /* StringExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		FD942E4825D5728A00BA4D40 /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		FD942E4E25D576F100BA4D40 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		FDAB75FE25D57B7A00292647 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		FDDF999F25D5E8D9009925A8 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		FD942E4225D571D000BA4D40 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				FDDF999F25D5E8D9009925A8 /* StringExtensions.swift */,
 				FD942E2D25D571B700BA4D40 /* AppDelegate.swift */,
 				FD942E2F25D571B700BA4D40 /* SceneDelegate.swift */,
 				FD942E3625D571B800BA4D40 /* Assets.xcassets */,
@@ -204,6 +207,7 @@
 				FD897C4A25D5ADC3003BEE6E /* TitleTableViewCell.swift in Sources */,
 				FD942E4F25D576F100BA4D40 /* NetworkManager.swift in Sources */,
 				FD942E3225D571B700BA4D40 /* ViewController.swift in Sources */,
+				FDDF99A025D5E8D9009925A8 /* StringExtensions.swift in Sources */,
 				FD942E2E25D571B700BA4D40 /* AppDelegate.swift in Sources */,
 				FD942E4925D5728A00BA4D40 /* Artist.swift in Sources */,
 				FD897C5325D5B1FB003BEE6E /* TitleViewController.swift in Sources */,
