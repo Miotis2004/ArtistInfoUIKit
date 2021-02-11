@@ -18,7 +18,6 @@
 		FD942E3A25D571B800BA4D40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD942E3825D571B800BA4D40 /* LaunchScreen.storyboard */; };
 		FD942E4925D5728A00BA4D40 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD942E4825D5728A00BA4D40 /* Artist.swift */; };
 		FD942E4F25D576F100BA4D40 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD942E4E25D576F100BA4D40 /* NetworkManager.swift */; };
-		FDAB75FC25D57B5600292647 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FDAB75FB25D57B5600292647 /* Alamofire */; };
 		FDAB75FF25D57B7A00292647 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAB75FE25D57B7A00292647 /* ViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +43,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDAB75FC25D57B5600292647 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +142,6 @@
 			);
 			name = ArtistInfoUIKit;
 			packageProductDependencies = (
-				FDAB75FB25D57B5600292647 /* Alamofire */,
 			);
 			productName = ArtistInfoUIKit;
 			productReference = FD942E2A25D571B700BA4D40 /* ArtistInfoUIKit.app */;
@@ -424,14 +421,6 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		FDAB75FB25D57B5600292647 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FDAB75FA25D57B5600292647 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FD942E2225D571B700BA4D40 /* Project object */;
 }
