@@ -33,11 +33,16 @@ class TitleViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         
         self.vm.callNetwork(name: nameData ?? "")
+        
+        
         self.vm.bind { [weak self] in
             print("Callback achieved")
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
+        } errorHandler: { [weak self] in
+            print("No artists")
+            self?.presentSimpleAlert(title: "Error", message: "No records found", buttonTitle: "OK")
         }
     }
     

@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol Network {
+    func loadTrackList(name: String, completion: @escaping ([Artist]) -> Void)
+}
+
 final class NetworkManager {
     static var shared = NetworkManager()
     
@@ -18,7 +22,7 @@ final class NetworkManager {
     
 }
 
-extension NetworkManager {
+extension NetworkManager: Network {
     func loadTrackList(name: String, completion: @escaping ([Artist]) -> Void) {
         guard let url = URL(string: "https://itunes.apple.com/search?term=\(name)") else {
             print("Guard URL statement failed")

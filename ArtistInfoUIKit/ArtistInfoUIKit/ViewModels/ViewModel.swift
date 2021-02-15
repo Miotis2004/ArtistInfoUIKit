@@ -5,25 +5,28 @@
 //  Created by Ronald Joubert on 2/11/21.
 //
 
-import Foundation
-import CoreData
+import UIKit
+
 
 class ViewModel {
     
-    var networkManager: NetworkManager
+    var networkManager: Network
     var trackArray: [Artist]? {
         didSet {
+            guard trackArray?.count ?? 0 > 0 else { return }
             self.updateHandler?()
         }
     }
     var updateHandler: (() -> Void)?
+    var errorHandler: (() -> Void)?
  
-    init(networkManager: NetworkManager = NetworkManager.shared) {
+    init(networkManager: Network = NetworkManager.shared) {
         self.networkManager = networkManager
     }
     
-    func bind(updateHandler: @escaping (() -> Void)) {
+    func bind(updateHandler: @escaping (() -> Void), errorHandler: @escaping (() -> Void)) {
         self.updateHandler = updateHandler
+        self.errorHandler = errorHandler
     }
     
 }
@@ -33,6 +36,10 @@ extension ViewModel {
     func callNetwork(name: String) {
         self.networkManager.loadTrackList(name: name) { [weak self] (artists) in
             self?.trackArray = artists
+            
+            if self?.trackArray?.count ?? 0 == 0 {
+                self?.errorHandler?()
+            }
         }
     }
     
@@ -42,22 +49,27 @@ extension ViewModel {
     }
     
     func artistName(index: Int) -> String {
+        guard self.count() > index else { return "" }
         return self.trackArray?[index].artistName ?? ""
     }
     
     func trackName(index: Int) -> String {
+        guard self.count() > index else { return "" }
         return self.trackArray?[index].trackName ?? ""
     }
     
     func releaseDate(index: Int) -> String {
+        guard self.count() > index else { return "" }
         return self.trackArray?[index].releaseDate ?? ""
     }
     
     func genre(index: Int) -> String {
+        guard self.count() > index else { return "" }
         return self.trackArray?[index].primaryGenreName ?? ""
     }
     
     func price(index: Int) -> Double {
+        guard self.count() > index else { return 0.0 }
         return self.trackArray?[index].trackPrice ?? 0.0
     }
     
