@@ -50,18 +50,16 @@ class ViewModelTests: XCTestCase {
         // Arrange
         let expectation = XCTestExpectation()
         
-        // Act / Assert
+        // Act
         self.viewModel?.bind(updateHandler: {
             expectation.fulfill()
         }, errorHandler: {
             XCTFail()
         })
-        //wait(for: [expectation], timeout: 5.0)
-        
         self.viewModel?.callNetwork(name: "")
         
-        
-        
+        // Assert
+        wait(for: [expectation], timeout: 5.0)
     }
 
 }
@@ -72,10 +70,10 @@ class MockNetworkManager: Network {
     
     func loadTrackList(name: String, completion: @escaping ([Artist]) -> Void) {
        
-        DispatchQueue.global().async {
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.5, execute: {
             let artist = Artist(trackId: 1, artistName: "Snoop Dog", trackName: "Snoopy Snoop", releaseDate: "SomeDateHere", primaryGenreName: "Rap", trackPrice: 10.99)
             completion([artist])
-        }
+        })
         
     }
     
