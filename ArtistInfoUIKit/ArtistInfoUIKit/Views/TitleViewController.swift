@@ -14,13 +14,14 @@ class TitleViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var nameData: String?
     let vm = ViewModel()
-    
-    static func viewController(name: String) -> TitleViewController? {
-        let sb = UIStoryboard(name: "main", bundle: nil)
-        let vc = sb.instantiateViewController(identifier: "TitleViewController") as? TitleViewController
-        vc?.nameData = name
-        return vc
-    }
+
+//      FOR NOT SEGUEING
+//    static func viewController(name: String) -> TitleViewController? {
+//        let sb = UIStoryboard(name: "main", bundle: nil)
+//        let vc = sb.instantiateViewController(identifier: "TitleViewController") as? TitleViewController
+//        vc?.nameData = name
+//        return vc
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -34,12 +34,15 @@ class ViewModel {
 extension ViewModel {
     
     func callNetwork(name: String) {
-        self.networkManager.loadTrackList(name: name) { [weak self] (artists) in
-            self?.trackArray = artists
-            
-            if self?.trackArray?.count ?? 0 == 0 {
+        self.networkManager.loadTrackList(name: name) { [weak self] (result) in
+            switch result {
+            case .success(let artists):
+                self?.trackArray = artists
+            case .failure(_):
                 self?.errorHandler?()
             }
+            
+    
         }
     }
     

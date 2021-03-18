@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import CoreData
-
 
 struct ArtistWrapper: Codable {
     var resultCount: Int

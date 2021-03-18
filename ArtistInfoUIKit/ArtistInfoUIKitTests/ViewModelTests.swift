@@ -10,16 +10,19 @@ import XCTest
 
 class ViewModelTests: XCTestCase {
 
-    var viewModel: ViewModel?
+    var viewModelWithPassing: ViewModel?
+    var viewModelWithFailing: ViewModel?
     
     override func setUpWithError() throws {
         try super.setUpWithError()
-        self.viewModel = ViewModel(networkManager: MockNetworkManager())
+        self.viewModelWithPassing = ViewModel(networkManager: MockNetworkManagerPass())
+        self.viewModelWithFailing = ViewModel(networkManager: MockNetworkManagerFail())
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
     override func tearDownWithError() throws {
-        self.viewModel = nil
+        self.viewModelWithPassing = nil
+        self.viewModelWithFailing = nil
         try super.tearDownWithError()
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
@@ -27,15 +30,15 @@ class ViewModelTests: XCTestCase {
     func testArtistInfo() {
         // Arrange
         let artist = Artist(trackId: 1, artistName: "Snoop Dog", trackName: "Snoopy Snoop", releaseDate: "SomeDateHere", primaryGenreName: "Rap", trackPrice: 10.99)
-        self.viewModel?.trackArray = [artist]
+        self.viewModelWithPassing?.trackArray = [artist]
         
         // Act
-        let count = self.viewModel?.count() ?? 0
-        let artistName = self.viewModel?.artistName(index: 0)
-        let trackName = self.viewModel?.trackName(index: 0)
-        let release = self.viewModel?.releaseDate(index: 0)
-        let genre = self.viewModel?.genre(index: 0)
-        let price = self.viewModel?.price(index: 0)
+        let count = self.viewModelWithPassing?.count() ?? 0
+        let artistName = self.viewModelWithPassing?.artistName(index: 0)
+        let trackName = self.viewModelWithPassing?.trackName(index: 0)
+        let release = self.viewModelWithPassing?.releaseDate(index: 0)
+        let genre = self.viewModelWithPassing?.genre(index: 0)
+        let price = self.viewModelWithPassing?.price(index: 0)
         
         // Assert
         XCTAssertEqual(count, 1)
@@ -51,28 +54,56 @@ class ViewModelTests: XCTestCase {
         let expectation = XCTestExpectation()
         
         // Act
-        self.viewModel?.bind(updateHandler: {
+        self.viewModelWithPassing?.bind(updateHandler: {
             expectation.fulfill()
         }, errorHandler: {
             XCTFail()
         })
-        self.viewModel?.callNetwork(name: "")
+        self.viewModelWithPassing?.callNetwork(name: "")
         
         // Assert
         wait(for: [expectation], timeout: 5.0)
+    }
+    
+    func testCallNetworkFail() {
+        // Arrange
+        let expectation = XCTestExpectation()
+        
+        // Act
+        self.viewModelWithFailing?.bind(updateHandler: {
+            XCTFail()
+        }, errorHandler: {
+            expectation.fulfill()
+        })
+        self.viewModelWithFailing?.callNetwork(name: "")
+        
+        // Assert
+        wait(for: [expectation], timeout: 3)
     }
 
 }
 
 
 
-class MockNetworkManager: Network {
+class MockNetworkManagerPass: Network {
     
-    func loadTrackList(name: String, completion: @escaping ([Artist]) -> Void) {
+    func loadTrackList(name: String, completion: @escaping (Result<[Artist], Error>) -> Void) {
        
         DispatchQueue.global().asyncAfter(deadline: .now() + 0.5, execute: {
             let artist = Artist(trackId: 1, artistName: "Snoop Dog", trackName: "Snoopy Snoop", releaseDate: "SomeDateHere", primaryGenreName: "Rap", trackPrice: 10.99)
-            completion([artist])
+            completion(.success([artist]))
+        })
+        
+    }
+    
+}
+
+class MockNetworkManagerFail: Network {
+    
+    func loadTrackList(name: String, completion: @escaping (Result<[Artist], Error>) -> Void) {
+       
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.5, execute: {
+            completion(.failure(CustomError.decodeFailure))
         })
         
     }
